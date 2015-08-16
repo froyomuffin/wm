@@ -46,6 +46,10 @@ super + ctrl + {_,shift + }space
 super + ctrl + {Left,Down,Up,Right}
     bspc window -p {left,down,up,right}
 
+# Move into preselection
+super + y
+    bspc window -w last.manual
+
 # Move window in a desktop
 super + {_,shift + }{Left,Down,Up,Right}
     bspc window -{f,s} {left,down,up,right}
@@ -54,7 +58,7 @@ super + {_,shift + }{Left,Down,Up,Right}
 super + alt + {Left,Down,Up,Right}
     bspc window -e {left -10,down +10,up -10,right +10}
 
-# Resizing windoes
+# Resizing windows
 super + alt + shift + {Left,Down,Up,Right}
     bspc window -e {right -10,up +10,down -10,left +10}
 
@@ -77,11 +81,10 @@ super + space
 # Reload sxhkd config
 super + Escape
     pkill -USR1 -x sxhkd
-    bspc window -{f,s} {left,down,up,right}
 
 # Suspend
 super + ctrl + shift + s
-    i3lock -i ~/Wallpapers/W_2014_361_DARKWING.png -c 000000 -e && systemctl suspend
+    i3lock -i /data/wallpapers/W_2014_361_DARKWING.png -c 000000 -e && systemctl suspend
 
 # Moving windows
 super + button{1}
@@ -129,9 +132,6 @@ super + F9
 #    bspc control --record-history off; \
 #    bspc window {older,newer} -f; \
 #    bspc control --record-history on
-
-#super + y
-#    bspc window -w last.manual
 
 #super + m
 #    bspc window -s biggest
