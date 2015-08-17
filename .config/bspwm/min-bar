@@ -1,0 +1,56 @@
+#!/bin/sh
+
+# Date info
+function date_info {
+    DATESTR=""
+    DATESTR=$DATESTR$(date '+%a %d-%m-%y %l:%M:%S %p')
+    echo $DATESTR
+}
+
+# Space info
+function free_space {
+    DRIVE=$1
+    df | grep " $DRIVE$" | awk '{ printf("%s %.2fGB\n", $NF, $4/1000000) }'
+}
+
+function space_info {
+    SPACESTR=""
+    DRIVELIST="/ /data"
+    for DRIVE in $DRIVELIST
+    do
+        SPACESTR="$SPACESTR $(free_space $DRIVE)"
+    done
+    echo $SPACESTR
+}
+
+# CPU Info
+function cpu_temp {
+    sensors | grep -m 1 "Core 0" | awk '{ print $3 }'
+}
+
+function cpu_freq {
+    lscpu | grep 'CPU MHz' | awk '{ print $3 }' | awk '{ printf("%.2fGHz\n",$1/1000) }'
+}
+
+function cpu_info {
+    CPUSTR=""
+    CPUSTR="$CPUSTR $(cpu_freq) $(cpu_temp)"
+    echo $CPUSTR
+}
+
+# RAM Info
+function ram_info {
+    RAMSTR=""
+    RAMSTR=$RAMSTR$(free | grep Mem | awk '{ printf("%.2fGB\n",$3/1000000) }')
+    echo $RAMSTR
+}
+
+# Update the bar continuously
+while true
+do
+    INFOSTR="| $(space_info) | $(cpu_info) | $(ram_info) | $(date_info) |"
+    echo "%{r}"$INFOSTR
+    sleep 1
+done | lemonbar -p -gx20 -B\#333333
+
+wait

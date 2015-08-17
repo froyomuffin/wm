@@ -22,5 +22,5 @@ bspc monitor -d I II III IV V VI VII VIII IX X
 bspc rule -a Skype floating=on
 
 exec /usr/bin/compton --config ~/.config/compton/config &
-exec $SELFDIR/min-panel &
+exec $SELFDIR/min-bar &
 exec feh --bg-fill $WP
