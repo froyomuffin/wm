@@ -45,10 +45,21 @@ function ram_info {
     echo $RAMSTR
 }
 
+# Network connectivity info
+function net_info() {
+    NETSTR=""
+    IFLIST=$(ls /sys/class/net | grep -v '^lo$' | xargs)
+    for IF in $IFLIST
+    do
+        NETSTR="$NETSTR $IF $(cat /sys/class/net/$IF/operstate)"
+    done
+    echo $NETSTR
+}
+
 # Update the bar continuously
 while true
 do
-    INFOSTR="| $(space_info) | $(cpu_info) | $(ram_info) | $(date_info) |"
+    INFOSTR="| $(net_info) | $(space_info) | $(cpu_info) | $(ram_info) | $(date_info) |"
     echo "%{r}"$INFOSTR
     sleep 1
 done | lemonbar -p -gx20 -B\#333333
