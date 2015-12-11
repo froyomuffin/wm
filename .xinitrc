@@ -11,3 +11,6 @@ xset -dpms s off
 # bspwm
 sxhkd &
 exec bspwm
+
+# Android-studio
+export _JAVA_AWT_WM_NONREPARENTING=1
