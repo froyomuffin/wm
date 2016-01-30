@@ -48,11 +48,7 @@ function ram_info {
 # Network connectivity info
 function net_info() {
     NETSTR=""
-    IFLIST=$(ls /sys/class/net | grep -v '^lo$' | xargs)
-    for IF in $IFLIST
-    do
-        NETSTR="$NETSTR $IF $(cat /sys/class/net/$IF/operstate)"
-    done
+    fping -t50 8.8.8.8 &> /dev/null && NETSTR="up" || NETSTR="down"
     echo $NETSTR
 }
 
