@@ -45,3 +45,12 @@ URxvt*scrollBar: false
 
 URxvt.depth: 32
 URxvt.background: rgba:3f00/3f00/3f00/dddd
+
+! Cliboard
+URxvt.perl-ext-common: default,clipboard
+URxvt.iso14755: False
+
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.clipboard.copycmd:  xsel -ib
+URxvt.clipboard.pastecmd: xsel -ob
