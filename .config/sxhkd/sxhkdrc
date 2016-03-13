@@ -108,6 +108,26 @@ super + F12
 super + F9
     mpc toggle
 
+# Volume bindings
+super + F8
+    pactl set-sink-volume 1 +5%
+
+super + alt + F8
+    pactl set-sink-volume 1 +1%
+
+super + F7
+    pactl set-sink-volume 1 -5%
+
+super + alt + F7
+    pactl set-sink-volume 1 -1%
+
+# Print screen!
+Print
+    snapall
+
+super + Print
+    snap
+
 # Mouse bindings use 'xev' to find the mouse button and 'xbindkeys -k'
 # Forward
 #button {9}
