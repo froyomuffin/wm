@@ -52,10 +52,19 @@ function net_info() {
     echo $NETSTR
 }
 
+# Volume info
+function volume_info() {
+    VOLSTR=""
+    # Assume pulse
+    SINKNUM=1
+    VOLSTR=$(pactl list sinks | sed -n '/Sink #'$SINKNUM'/,/Volume/p' | grep Volume | perl -pe 's/.* (.*?)% .*/$1/g')'%%'
+    echo $VOLSTR
+}
+
 # Update the bar continuously
 while true
 do
-    INFOSTR="| $(net_info) | $(space_info) | $(cpu_info) | $(ram_info) | $(date_info) |"
+    INFOSTR="| $(net_info) | $(space_info) | $(cpu_info) | $(ram_info) | $(volume_info) | $(date_info) |"
     echo "%{r}"$INFOSTR
     sleep 1
 done | lemonbar -p -gx20 -B\#333333
