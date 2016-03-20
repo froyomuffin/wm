@@ -4,35 +4,23 @@ super + alt + Escape
 
 # Close window
 super + w
-    bspc window -c
+    bspc node -c
 
 # Balance the surface area of all windows
 super + b
-    bspc desktop -B
+    bspc node @west -B; bspc node @south -B; bspc node @north -B; bspc node @east -B
 
-# Toggle window fullscreen
-super + f
-    bspc window -t fullscreen
+# Set window state to tiled, pseudo_tiled, floating, fullscreen
+super + {t,shift + t,s,f}
+    bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
-# Toggle window floating
-super + s
-    bspc window -t floating
+# Toggle between current and last node/desktop
+super + {grave,Tab}
+    bspc {node,desktop} -f last
 
-# Toggle between current and last window
-super + grave
-    bspc window -f last
-
-# Toggle between current and last desktop
-super + Tab
-    bspc desktop -f last
-
-# Rotate windows
-super + {comma,period}
-    bspc desktop -C {backward,forward}
-
-# Change desktops
+# Focus or send to given desktops
 super + {_,shift + }{1-9,0}
-    bspc {desktop -f,window -d} ^{1-9,10}
+    bspc {desktop -f,node -d} ^{1-9,10}
 
 # Change desktops
 super + bracket{left,right}
@@ -40,31 +28,40 @@ super + bracket{left,right}
 
 # Cancel window or desktop preselections
 super + ctrl + {_,shift + }space
-    bspc {window -p cancel,desktop -c}
+    bspc {node -p cancel,desktop -c}
 
 # Change window preselection
 super + ctrl + {Left,Down,Up,Right}
-    bspc window -p {left,down,up,right}
+    bspc node -p {west,south,north,east}
 
 # Move into preselection
+# If the current node is automatic, send it to the last manual, otherwise pull the last leaf
 super + y
-    bspc window -w last.manual
+    bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
 
-# Move window in a desktop
+# Move selection or node in a desktop
 super + {_,shift + }{Left,Down,Up,Right}
-    bspc window -{f,s} {left,down,up,right}
+    bspc node -{f,s} {west,south,north,east}
 
 # Resizing windows
 super + alt + {Left,Down,Up,Right}
-    bspc window -e {left -10,down +10,up -10,right +10}
+    bspc node {@west -r -10,@south -r +10,@north -r -10,@east -r +10}
 
 # Resizing windows
 super + alt + shift + {Left,Down,Up,Right}
-    bspc window -e {right -10,up +10,down -10,left +10}
+    bspc node {@east -r -10,@north -r +10,@south -r -10,@west -r +10}
 
 # Set splitting ratio
 super + ctrl + {1-9}
-    bspc window -r 0.{1-9}
+    bspc node -o 0.{1-9}
+
+# Move/resize nodes
+super + button{1-3}
+    ; bspc pointer -g {move,resize_side,resize_corner}
+
+# End move/resize nodes
+super + @button{1-3}
+    bspc pointer -u
 
 # Click to focus
 ~button1
@@ -85,18 +82,6 @@ super + Escape
 # Suspend
 super + ctrl + shift + s
     i3lock -i /data/wallpapers/W_2014_361_DARKWING.png -c 000000 -e && systemctl suspend
-
-# Moving windows
-super + button{1}
-    bspc pointer -g move
-
-# Moving windows
-super + !button{1-3}
-    bspc pointer -t %i %i
-
-# Moving windows
-super + @button{1-3}
-    bspc pointer -u
 
 # Music bindings
 super + F11
@@ -121,68 +106,9 @@ super + F7
 super + alt + F7
     pactl set-sink-volume 1 -1%
 
-# Print screen!
+# Print screen
 Print
     snapall
 
 super + Print
     snap
-
-# Mouse bindings use 'xev' to find the mouse button and 'xbindkeys -k'
-# Forward
-#button {9}
-#    xte 'key leftbracket'    
-
-# Back
-#button {8}
-#    xte 'key rightbracket'    
-
-# Zoom
-#button {13}
-#    xte 'key backslash'    
-
-# Hover
-#button {10}
-#    xte 'key apostrophe'
-
-# =============================================================================
-# Uncharacterized or Unused commands
-# =============================================================================
-#super + {o,i}
-#    bspc control --record-history off; \
-#    bspc window {older,newer} -f; \
-#    bspc control --record-history on
-
-#super + m
-#    bspc window -s biggest
-
-#super + {_,shift + }{h,j,k,l}
-#    bspc window -{f,s} {left,down,up,right}
-
-#super + {_,shift + }c
-#    bspc window -f {next,prev}
-
-#super + !button{1-3}
-    #bspc pointer -t %i %i
-
-#super + alt + {h,j,k,l}
-#    bspc window -e {left -10,down +10,up -10,right +10}
-
-#super + alt + shift + {h,j,k,l}
-#    bspc window -e {right -10,up +10,down -10,left +10}
-
-#super + ctrl + {h,j,k,l}
-#    bspc window -p {left,down,up,right}
-
-#super + t
-#    bspc desktop -l next
-
-# Swap current and last window
-#super + apostrophe
-#    bspc window -s last
-
-# Window sizing
-#super + button{2,3}
-#    bspc pointer -g {resize_side,resize_corner}
-
-
