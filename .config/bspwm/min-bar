@@ -34,7 +34,8 @@ function cpu_freq {
 
 function cpu_info {
     CPUSTR=""
-    CPUSTR="$CPUSTR $(cpu_freq) $(cpu_temp)"
+    #CPUSTR="$CPUSTR $(cpu_freq) $(cpu_temp)"
+    CPUSTR="$CPUSTR $(cpu_freq)"
     echo $CPUSTR
 }
 
@@ -56,7 +57,7 @@ function net_info() {
 function volume_info() {
     VOLSTR=""
     # Assume pulse
-    SINKNUM=1
+    SINKNUM=0
     VOLSTR=$(pactl list sinks | sed -n '/Sink #'$SINKNUM'/,/Volume/p' | grep Volume | perl -pe 's/.* (.*?)% .*/$1/g')'%%'
     echo $VOLSTR
 }
