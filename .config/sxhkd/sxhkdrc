@@ -73,7 +73,7 @@ super + Return
 
 # Run
 super + space
-    dmenu_run
+    dmenu_proxy_run
 
 # Reload sxhkd config
 super + Escape
@@ -95,16 +95,16 @@ super + F9
 
 # Volume bindings
 super + F8
-    pactl set-sink-volume 1 +5%
+    pactl set-sink-volume 0 +5%
 
 super + alt + F8
-    pactl set-sink-volume 1 +1%
+    pactl set-sink-volume 0 +1%
 
 super + F7
-    pactl set-sink-volume 1 -5%
+    pactl set-sink-volume 0 -5%
 
 super + alt + F7
-    pactl set-sink-volume 1 -1%
+    pactl set-sink-volume 0 -1%
 
 # Print screen
 Print
