@@ -39,7 +39,8 @@
 *.color15:      #cfd0c2
 
 ! Urxvt
-URxvt*font: xft:DejaVu Sans Mono for Powerline:size=10
+! URxvt*font: xft:DejaVu Sans Mono for Powerline:pixelsize=18
+URxvt*font: xft:DejaVu Sans Mono for Powerline:pixelsize=25
 URxvt*urlLauncher: firefox  
 URxvt*scrollBar: false
 
