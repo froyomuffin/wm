@@ -1,6 +1,9 @@
 # Fix right click 'x' cursor
 xsetroot -cursor_name left_ptr
 
+# Load keyboard and mouse modifications
+[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
+
 # Hide mouse
 unclutter -idle 3 &
 
@@ -14,3 +17,6 @@ exec bspwm
 
 # Android-studio
 export _JAVA_AWT_WM_NONREPARENTING=1
+
+# Reset pulseaudio
+pulseaudio -k
