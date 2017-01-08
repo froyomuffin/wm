@@ -83,28 +83,34 @@ super + Escape
 super + ctrl + shift + s
     i3lock -i /data/wallpapers/W_2014_361_DARKWING.png -c 000000 -e && systemctl suspend
 
-# Music bindings
-super + F11
-    mpc prev
-
-super + F12
-    mpc next
+# Media bindings
+XF86AudioRaiseVolume
+    pamixer --increase 5
 
 super + F9
-    mpc toggle
+    pamixer --increase 1
 
-# Volume bindings
+XF86AudioLowerVolume
+    pamixer --decrease 5
+
 super + F8
-    pactl set-sink-volume 0 +5%
+    pamixer --decrease 1
 
-super + alt + F8
-    pactl set-sink-volume 0 +1%
+XF86AudioMute
+    pamixer --toggle-mute
 
-super + F7
-    pactl set-sink-volume 0 -5%
+XF86AudioPlay
+    playerctl play-pause
+ 
+XF86AudioNext
+    playerctl next
 
-super + alt + F7
-    pactl set-sink-volume 0 -1%
+XF86AudioPrev
+    playerctl previous
+
+# Cycle audio sinks
+super + F1
+    cycle-audio
 
 # Print screen
 Print
